@@ -10,7 +10,8 @@ const Navbar = () => {
           <Link to="/" className="text-white">Home</Link>
           <Link to="/keyword-analysis" className="text-white">Keyword Analysis</Link>
           <Link to="/backlink-checker" className="text-white">Backlink Checker</Link>
-          <Link to="/ollama-integration" className="text-white">Ollama Integration</Link> {/* Add the new link */}
+          <Link to="/ollama-integration" className="text-white">Ollama Integration</Link>
+          <Link to="/social-media-integration" className="text-white">Social Media Integration</Link> {/* Add the new link */}
         </div>
       </div>
     </nav>
