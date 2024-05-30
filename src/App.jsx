@@ -3,6 +3,7 @@ import Index from "./pages/Index.jsx";
 import KeywordAnalysis from "./pages/KeywordAnalysis.jsx";
 import BacklinkChecker from "./pages/BacklinkChecker.jsx";
 import OllamaIntegration from "./pages/OllamaIntegration.jsx"; // Import the new page
+import SocialMediaIntegration from "./pages/SocialMediaIntegration.jsx"; // Import the new page
 import Navbar from "./components/Navbar.jsx";
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
           <Route exact path="/" element={<Index />} />
           <Route exact path="/keyword-analysis" element={<KeywordAnalysis />} />
           <Route exact path="/backlink-checker" element={<BacklinkChecker />} />
-          <Route exact path="/ollama-integration" element={<OllamaIntegration />} /> {/* Add the new route */}
+          <Route exact path="/ollama-integration" element={<OllamaIntegration />} />
+          <Route exact path="/social-media-integration" element={<SocialMediaIntegration />} /> {/* Add the new route */}
         </Routes>
       </Router>
     </>
