@@ -1,12 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const KeywordAnalysis = () => {
+  const [keyword, setKeyword] = useState('');
+  const [analysisResults, setAnalysisResults] = useState(null);
+  const [error, setError] = useState('');
+
+  const handleInputChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setAnalysisResults(null);
+    try {
+      const res = await fetch('http://localhost:5000/api/keyword-analysis', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ keyword }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setAnalysisResults(data);
+      } else {
+        setError(data.message || 'An error occurred while fetching the analysis.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setError('An error occurred while fetching the analysis.');
+    }
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-4xl font-bold mb-4">Keyword Analysis</h1>
-      <p className="text-lg">
-        Analyze the keywords that are driving traffic to your site and discover new opportunities.
-      </p>
+      <form onSubmit={handleSubmit} className="mb-4">
+        <input
+          type="text"
+          value={keyword}
+          onChange={handleInputChange}
+          className="border p-2 w-full mb-2"
+          placeholder="Enter a keyword..."
+        />
+        <button type="submit" className="bg-blue-500 text-white p-2">Analyze</button>
+      </form>
+      {error && (
+        <div className="bg-red-100 p-4 rounded mb-4">
+          <p className="text-red-500">{error}</p>
+        </div>
+      )}
+      {analysisResults && (
+        <div className="bg-gray-100 p-4 rounded">
+          <h2 className="text-2xl font-bold mb-2">Analysis Results:</h2>
+          <p><strong>Search Volume:</strong> {analysisResults.searchVolume}</p>
+          <p><strong>Competition:</strong> {analysisResults.competition}</p>
+          <p><strong>Related Keywords:</strong> {analysisResults.relatedKeywords.join(', ')}</p>
+        </div>
+      )}
     </div>
   );
 };
